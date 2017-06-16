@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import starwars from './starwars';
+import crawl from './crawl';
 
 const rootReducer = combineReducers({
-  starwars,
+  crawl,
 });
 
 export default rootReducer;

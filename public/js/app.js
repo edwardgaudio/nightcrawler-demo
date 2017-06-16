@@ -3125,10 +3125,15 @@ module.exports = g;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var FETCH_STARWARS = exports.FETCH_STARWARS = 'FETCH_STARWARS';
-var LOADING_STARWARS = exports.LOADING_STARWARS = 'LOADING_STARWARS';
-var UPDATE_STARWARS = exports.UPDATE_STARWARS = 'UPDATE_STARWARS';
-var FAIL_STARWARS = exports.FAIL_STARWARS = 'FAIL_STARWARS';
+var FETCH_CRAWL = exports.FETCH_CRAWL = 'FETCH_CRAWL';
+var LOADING_CRAWL = exports.LOADING_CRAWL = 'LOADING_CRAWL';
+var UPDATE_CRAWL = exports.UPDATE_CRAWL = 'UPDATE_CRAWL';
+var FAIL_CRAWL = exports.FAIL_CRAWL = 'FAIL_CRAWL';
+
+var SAVE_LINK = exports.SAVE_LINK = 'SAVE_LINK';
+var LOADING_SAVE_LINK = exports.LOADING_SAVE_LINK = 'LOADING_SAVE_LINK';
+var UPDATE_SAVE_LINK = exports.UPDATE_SAVE_LINK = 'UPDATE_SAVE_LINK';
+var FAIL_SAVE_LINK = exports.FAIL_SAVE_LINK = 'FAIL_SAVE_LINK';
 
 /***/ }),
 /* 31 */
@@ -9087,59 +9092,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 130 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.updateStarwars = updateStarwars;
-exports.loadingStarwars = loadingStarwars;
-exports.failStarwars = failStarwars;
-exports.fetchStarwars = fetchStarwars;
-
-var _axios = __webpack_require__(124);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _ActionTypes = __webpack_require__(30);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var STARWARS_URL = 'http://swapi.co/api/people/';
-
-function updateStarwars(data) {
-  return {
-    type: _ActionTypes.UPDATE_STARWARS,
-    data: data
-  };
-}
-
-function loadingStarwars() {
-  return {
-    type: _ActionTypes.LOADING_STARWARS
-  };
-}
-
-function failStarwars() {
-  return {
-    type: _ActionTypes.FAIL_STARWARS
-  };
-}
-
-function fetchStarwars() {
-  return function (dispatch) {
-    dispatch(loadingStarwars());
-    return _axios2.default.get(STARWARS_URL).then(function (response) {
-      return dispatch(updateStarwars(response.data));
-    }).catch(function (err) {});
-  };
-}
-
-/***/ }),
+/* 130 */,
 /* 131 */,
 /* 132 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -9161,13 +9114,13 @@ var _redux = __webpack_require__(28);
 
 var _reactRedux = __webpack_require__(42);
 
-var _StarwarsActions = __webpack_require__(130);
+var _CrawlActions = __webpack_require__(597);
 
-var StarwarsActions = _interopRequireWildcard(_StarwarsActions);
+var CrawlActions = _interopRequireWildcard(_CrawlActions);
 
-var _Starwars = __webpack_require__(256);
+var _Crawl = __webpack_require__(600);
 
-var _Starwars2 = _interopRequireDefault(_Starwars);
+var _Crawl2 = _interopRequireDefault(_Crawl);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -9178,12 +9131,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-/**
- * It is common practice to have a 'Root' container/component require our main App (this one).
- * Again, this is because it serves to wrap the rest of our application with the Provider
- * component to make the Redux store available to the rest of the app.
- */
 
 var App = function (_Component) {
   _inherits(App, _Component);
@@ -9198,8 +9145,8 @@ var App = function (_Component) {
     key: 'render',
     value: function render() {
       var _props = this.props,
-          starwarsData = _props.starwarsData,
-          starwarsActions = _props.starwarsActions;
+          crawlData = _props.crawlData,
+          crawlActions = _props.crawlActions;
 
       return _react2.default.createElement(
         'div',
@@ -9207,9 +9154,9 @@ var App = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'main-app-nav' },
-          'Simple Redux Boilerplate'
+          'NightCrawler'
         ),
-        _react2.default.createElement(_Starwars2.default, { data: starwarsData, actions: starwarsActions })
+        _react2.default.createElement(_Crawl2.default, { crawlData: crawlData, actions: crawlActions })
       );
     }
   }]);
@@ -9218,42 +9165,21 @@ var App = function (_Component) {
 }(_react.Component);
 
 App.propTypes = {
-  starwarsData: _react.PropTypes.object.isRequired,
-  starwarsActions: _react.PropTypes.object.isRequired
+  crawlData: _react.PropTypes.object.isRequired,
+  crawlActions: _react.PropTypes.object.isRequired
 };
 
-/**
- * Keep in mind that 'state' isn't the state of local object, but your single
- * state in this Redux application. 'counter' is a property within our store/state
- * object. By mapping it to props, we can pass it to the child component Counter.
- */
 function mapStateToProps(state) {
   return {
-    starwarsData: state.starwars
+    crawlData: state.crawl
   };
 }
 
-/**
- * Turns an object whose values are 'action creators' into an object with the same
- * keys but with every action creator wrapped into a 'dispatch' call that we can invoke
- * directly later on. Here we imported the actions specified in 'CounterActions.js' and
- * used the bindActionCreators function Redux provides us.
- *
- * More info: http://redux.js.org/docs/api/bindActionCreators.html
- */
 function mapDispatchToProps(dispatch) {
   return {
-    starwarsActions: (0, _redux.bindActionCreators)(StarwarsActions, dispatch)
+    crawlActions: (0, _redux.bindActionCreators)(CrawlActions, dispatch)
   };
 }
-
-/**
- * 'connect' is provided to us by the bindings offered by 'react-redux'. It simply
- * connects a React component to a Redux store. It never modifies the component class
- * that is passed into it, it actually returns a new connected componet class for use.
- *
- * More info: https://github.com/rackt/react-redux
- */
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App);
 
@@ -9321,14 +9247,14 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(28);
 
-var _starwars = __webpack_require__(261);
+var _crawl = __webpack_require__(598);
 
-var _starwars2 = _interopRequireDefault(_starwars);
+var _crawl2 = _interopRequireDefault(_crawl);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
-  starwars: _starwars2.default
+  crawl: _crawl2.default
 });
 
 exports.default = rootReducer;
@@ -17267,73 +17193,7 @@ module.exports = function spread(callback) {
 /* 250 */,
 /* 251 */,
 /* 252 */,
-/* 253 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // IMPORTANT, CONVERT THIS TO PROP Component
-
-
-var Starwars = function (_Component) {
-  _inherits(Starwars, _Component);
-
-  function Starwars(props, context) {
-    _classCallCheck(this, Starwars);
-
-    var _this = _possibleConstructorReturn(this, (Starwars.__proto__ || Object.getPrototypeOf(Starwars)).call(this, props, context));
-
-    _this.handleFetch = function () {
-      _this.props.actions.fetchStarwars();
-    };
-    return _this;
-  }
-
-  _createClass(Starwars, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "div",
-        { className: "starwars-container" },
-        _react2.default.createElement(
-          "button",
-          { onClick: this.handleFetch },
-          "GET STARWARS"
-        ),
-        JSON.stringify(this.props.data)
-      );
-    }
-  }]);
-
-  return Starwars;
-}(_react.Component);
-
-exports.default = Starwars;
-
-
-Starwars.propTypes = {
-  data: _react.PropTypes.object.isRequired,
-  actions: _react.PropTypes.object.isRequired
-};
-
-/***/ }),
+/* 253 */,
 /* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17467,96 +17327,7 @@ module.exports = function (_Component) {
 }(_react.Component);
 
 /***/ }),
-/* 256 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _redux = __webpack_require__(28);
-
-var _reactRedux = __webpack_require__(42);
-
-var _StarwarsActions = __webpack_require__(130);
-
-var StarwarsActions = _interopRequireWildcard(_StarwarsActions);
-
-var _Starwars = __webpack_require__(253);
-
-var _Starwars2 = _interopRequireDefault(_Starwars);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var StarwarsContainer = function (_Component) {
-  _inherits(StarwarsContainer, _Component);
-
-  function StarwarsContainer() {
-    _classCallCheck(this, StarwarsContainer);
-
-    return _possibleConstructorReturn(this, (StarwarsContainer.__proto__ || Object.getPrototypeOf(StarwarsContainer)).apply(this, arguments));
-  }
-
-  _createClass(StarwarsContainer, [{
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          data = _props.data,
-          actions = _props.actions;
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'main-app-container' },
-        _react2.default.createElement(
-          'div',
-          { className: 'main-app-nav' },
-          'Starwars:'
-        ),
-        _react2.default.createElement(_Starwars2.default, { data: data, actions: actions })
-      );
-    }
-  }]);
-
-  return StarwarsContainer;
-}(_react.Component);
-
-StarwarsContainer.propTypes = {
-  data: _react.PropTypes.object.isRequired,
-  actions: _react.PropTypes.object.isRequired
-};
-
-function mapStateToProps(state) {
-  return {
-    forecast: state.forecast
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: (0, _redux.bindActionCreators)(StarwarsActions, dispatch)
-  };
-}
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(StarwarsContainer);
-
-/***/ }),
+/* 256 */,
 /* 257 */,
 /* 258 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -17597,36 +17368,7 @@ _reactDom2.default.render(_react2.default.createElement(_Root.Root, { store: sto
 /***/ }),
 /* 259 */,
 /* 260 */,
-/* 261 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = forecast;
-
-var _ActionTypes = __webpack_require__(30);
-
-function forecast() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { data: {} };
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _ActionTypes.LOADING_STARWARS:
-      return state;
-    case _ActionTypes.UPDATE_STARWARS:
-      return { data: action.data };
-    case _ActionTypes.FAIL_STARWARS:
-      return state;
-    default:
-      return state;
-  }
-}
-
-/***/ }),
+/* 261 */,
 /* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42536,6 +42278,245 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
+
+/***/ }),
+/* 597 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.updateCrawl = updateCrawl;
+exports.loadingCrawl = loadingCrawl;
+exports.failedCrawl = failedCrawl;
+exports.fetchCrawl = fetchCrawl;
+
+var _axios = __webpack_require__(124);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _ActionTypes = __webpack_require__(30);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CRAWL_URL = '/crawl';
+
+function updateCrawl(links) {
+  return {
+    type: _ActionTypes.UPDATE_CRAWL,
+    links: links
+  };
+}
+
+function loadingCrawl() {
+  return {
+    type: _ActionTypes.LOADING_CRAWL
+  };
+}
+
+function failedCrawl() {
+  return {
+    type: _ActionTypes.FAIL_CRAWL
+  };
+}
+
+function fetchCrawl() {
+  return function (dispatch) {
+    dispatch(loadingCrawl());
+    return _axios2.default.get(CRAWL_URL).then(function (response) {
+      console.log('responseeee', response);
+      dispatch(updateCrawl(response.data.links));
+    }).catch(function (err) {}); // eslint-disable-line
+  };
+}
+
+/***/ }),
+/* 598 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = forecast;
+
+var _ActionTypes = __webpack_require__(30);
+
+function forecast() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { links: [] };
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _ActionTypes.LOADING_CRAWL:
+      return state;
+    case _ActionTypes.UPDATE_CRAWL:
+      return { links: action.links };
+    case _ActionTypes.FAIL_CRAWL:
+      return state;
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+/* 599 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // IMPORTANT, CONVERT THIS TO PROP Component
+
+
+var CrawlResults = function (_Component) {
+  _inherits(CrawlResults, _Component);
+
+  function CrawlResults(props, context) {
+    _classCallCheck(this, CrawlResults);
+
+    return _possibleConstructorReturn(this, (CrawlResults.__proto__ || Object.getPrototypeOf(CrawlResults)).call(this, props, context));
+  }
+
+  _createClass(CrawlResults, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "crawl-results-container" },
+        JSON.stringify(this.props.links)
+      );
+    }
+  }]);
+
+  return CrawlResults;
+}(_react.Component);
+
+exports.default = CrawlResults;
+
+
+CrawlResults.propTypes = {
+  links: _react.PropTypes.array.isRequired
+};
+
+/***/ }),
+/* 600 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _redux = __webpack_require__(28);
+
+var _reactRedux = __webpack_require__(42);
+
+var _CrawlActions = __webpack_require__(597);
+
+var CrawlActions = _interopRequireWildcard(_CrawlActions);
+
+var _CrawlResults = __webpack_require__(599);
+
+var _CrawlResults2 = _interopRequireDefault(_CrawlResults);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CrawlContainer = function (_Component) {
+  _inherits(CrawlContainer, _Component);
+
+  function CrawlContainer(props, context) {
+    _classCallCheck(this, CrawlContainer);
+
+    var _this = _possibleConstructorReturn(this, (CrawlContainer.__proto__ || Object.getPrototypeOf(CrawlContainer)).call(this, props, context));
+
+    _this.handleFetch = function () {
+      _this.props.actions.fetchCrawl();
+    };
+    return _this;
+  }
+
+  _createClass(CrawlContainer, [{
+    key: 'render',
+    value: function render() {
+      console.log('this props:', this.props);
+      var links = this.props.links;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'main-app-container' },
+        _react2.default.createElement(
+          'div',
+          { className: 'main-app-nav' },
+          'Crawl:'
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: this.handleFetch },
+          'CRAWL'
+        ),
+        _react2.default.createElement(_CrawlResults2.default, { links: links })
+      );
+    }
+  }]);
+
+  return CrawlContainer;
+}(_react.Component);
+
+CrawlContainer.propTypes = {
+  links: _react.PropTypes.array.isRequired,
+  actions: _react.PropTypes.object.isRequired
+};
+
+function mapStateToProps(state) {
+  return {
+    links: state.crawl.links
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: (0, _redux.bindActionCreators)(CrawlActions, dispatch)
+  };
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CrawlContainer);
 
 /***/ })
 /******/ ]);

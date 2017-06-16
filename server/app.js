@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname, '/views'));
 const njk = expressNunjucks(app, {// eslint-disable-line no-unused-vars
   watch: isDev,
   noCache: isDev,
-  globals: { myname: 'edg' },
+  globals: { appName: 'NightCrawler' },
 });
 
 // Routes

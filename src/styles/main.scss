@@ -5,7 +5,7 @@ $accent-blue: #37bbe4;
 body {
   background-color: $main-bg-color;
   color: $accent-blue;
-  display: flex;
   justify-content: center;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Courier';
+  font-size: 12px;
 }

@@ -2,7 +2,7 @@ const logger = require('../utils/logger');
 const router = require('express').Router();// eslint-disable-line
 const homeController = require('../controllers/homeController');
 const crawlController = require('../controllers/crawlController');
-const userController = require('../controllers/userController');
+const linkController = require('../controllers/linkController');
 
 // Marker: use this later, keep for now, middleware for router
 router.use((req, res, next) => {
@@ -12,9 +12,10 @@ router.use((req, res, next) => {
 
 router.get('/', homeController.index);
 router.get('/crawl', crawlController.crawl);
+router.post('/links', linkController.addLink);
 
 
-//Not impimented yet
-router.get('/user', userController.getUser);
+// Not impimented yet
+router.get('/links', linkController.getAllLinks);
 
 module.exports = router;

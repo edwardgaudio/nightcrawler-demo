@@ -4,7 +4,7 @@ const Link = db.define('link', {
   href: {
     type: db._Sequelize.STRING,
   },
-  text: {
+  link_text: {
     type: db._Sequelize.STRING,
   },
 });
