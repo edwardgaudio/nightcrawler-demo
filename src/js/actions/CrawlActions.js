@@ -29,7 +29,6 @@ export function fetchCrawl() {
     dispatch(loadingCrawl());
     return axios.get(CRAWL_URL)
       .then(response => {
-        console.log('responseeee', response);
         dispatch(updateCrawl(response.data.links));
       })
       .catch(err => {});// eslint-disable-line

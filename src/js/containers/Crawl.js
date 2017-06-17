@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as CrawlActions from '../actions/CrawlActions';
@@ -12,12 +13,10 @@ class CrawlContainer extends Component {
     };
   }
   render() {
-    console.log('this props:', this.props);
     const { links } = this.props;
     return (
       <div className="main-app-container">
-        <div className="main-app-nav">Crawl:</div>
-        <button onClick={this.handleFetch}>CRAWL</button>
+        <button onClick={this.handleFetch}>CRAWL - hackernews</button>
         <CrawlResults links={links} />
       </div>
     );

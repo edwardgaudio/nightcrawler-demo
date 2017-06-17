@@ -7550,7 +7550,6 @@ function fetchCrawl() {
   return function (dispatch) {
     dispatch(loadingCrawl());
     return _axios2.default.get(CRAWL_URL).then(function (response) {
-      console.log('responseeee', response);
       dispatch(updateCrawl(response.data.links));
     }).catch(function (err) {}); // eslint-disable-line
   };
@@ -12036,12 +12035,7 @@ var configureStore = function configureStore(initialState) {
 module.exports = configureStore;
 
 /***/ }),
-/* 227 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
+/* 227 */,
 /* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12903,50 +12897,51 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = __webpack_require__(8);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+// IMPORTANT, CONVERT THIS TO PROP Component
+var CrawlRow = function CrawlRow(_ref) {
+  var link = _ref.link;
+  return _react2.default.createElement(
+    'div',
+    null,
+    link.link_text,
+    _react2.default.createElement('br', null),
+    _react2.default.createElement(
+      'a',
+      { target: '_blank', href: link.href },
+      link.href
+    ),
+    _react2.default.createElement('br', null),
+    _react2.default.createElement('br', null)
+  );
+};
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // IMPORTANT, CONVERT THIS TO PROP Component
-
-
-var CrawlResults = function (_Component) {
-  _inherits(CrawlResults, _Component);
-
-  function CrawlResults(props, context) {
-    _classCallCheck(this, CrawlResults);
-
-    return _possibleConstructorReturn(this, (CrawlResults.__proto__ || Object.getPrototypeOf(CrawlResults)).call(this, props, context));
-  }
-
-  _createClass(CrawlResults, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "div",
-        { className: "crawl-results-container" },
-        JSON.stringify(this.props.links)
-      );
-    }
-  }]);
-
-  return CrawlResults;
-}(_react.Component);
-
-exports.default = CrawlResults;
-
+var CrawlResults = function CrawlResults(_ref2) {
+  var links = _ref2.links;
+  return _react2.default.createElement(
+    'div',
+    { className: 'crawl-results-container' },
+    _react2.default.createElement('br', null),
+    links.map(function (link, index) {
+      return _react2.default.createElement(CrawlRow, { key: index, link: link });
+    })
+  );
+};
 
 CrawlResults.propTypes = {
-  links: _react.PropTypes.array.isRequired
+  links: _propTypes2.default.array.isRequired
 };
+
+exports.default = CrawlResults;
 
 /***/ }),
 /* 248 */
@@ -12964,6 +12959,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(8);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _redux = __webpack_require__(42);
 
@@ -13006,11 +13005,6 @@ var App = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'main-app-container' },
-        _react2.default.createElement(
-          'div',
-          { className: 'main-app-nav' },
-          'NightCrawler'
-        ),
         _react2.default.createElement(_Crawl2.default, { crawlData: crawlData, actions: crawlActions })
       );
     }
@@ -13020,8 +13014,8 @@ var App = function (_Component) {
 }(_react.Component);
 
 App.propTypes = {
-  crawlData: _react.PropTypes.object.isRequired,
-  crawlActions: _react.PropTypes.object.isRequired
+  crawlData: _propTypes2.default.object.isRequired,
+  crawlActions: _propTypes2.default.object.isRequired
 };
 
 function mapStateToProps(state) {
@@ -13054,6 +13048,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(8);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _redux = __webpack_require__(42);
 
@@ -13094,21 +13092,15 @@ var CrawlContainer = function (_Component) {
   _createClass(CrawlContainer, [{
     key: 'render',
     value: function render() {
-      console.log('this props:', this.props);
       var links = this.props.links;
 
       return _react2.default.createElement(
         'div',
         { className: 'main-app-container' },
         _react2.default.createElement(
-          'div',
-          { className: 'main-app-nav' },
-          'Crawl:'
-        ),
-        _react2.default.createElement(
           'button',
           { onClick: this.handleFetch },
-          'CRAWL'
+          'CRAWL - hackernews'
         ),
         _react2.default.createElement(_CrawlResults2.default, { links: links })
       );
@@ -13119,8 +13111,8 @@ var CrawlContainer = function (_Component) {
 }(_react.Component);
 
 CrawlContainer.propTypes = {
-  links: _react.PropTypes.array.isRequired,
-  actions: _react.PropTypes.object.isRequired
+  links: _propTypes2.default.array.isRequired,
+  actions: _propTypes2.default.object.isRequired
 };
 
 function mapStateToProps(state) {
@@ -13153,7 +13145,7 @@ var _reactDom = __webpack_require__(228);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-__webpack_require__(227);
+__webpack_require__(588);
 
 var _configureStore = __webpack_require__(226);
 
@@ -13190,14 +13182,18 @@ exports.default = crawl;
 var _ActionTypes = __webpack_require__(129);
 
 function crawl() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { links: [] };
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { links: [], activeLink: null };
   var action = arguments[1];
 
   switch (action.type) {
     case _ActionTypes.LOADING_CRAWL:
       return state;
     case _ActionTypes.UPDATE_CRAWL:
-      return { links: action.links };
+      var activeLink = action.links[0] || null;
+      return {
+        links: action.links,
+        activeLink: activeLink
+      };
     case _ActionTypes.FAIL_CRAWL:
       return state;
     default:
@@ -26872,6 +26868,12 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
+
+/***/ }),
+/* 588 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

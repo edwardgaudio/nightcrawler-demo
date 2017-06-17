@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
  * the main SCSS file we have in the styles directory and then it gets extracted
  * to a more tranditional stylesheet
  */
-import '../styles/main.scss';
+import '../styles/importer.scss';
 
 import configureStore from './store/configureStore';
 import Root from './containers/Root';

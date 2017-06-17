@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as CrawlActions from '../actions/CrawlActions';
@@ -9,7 +10,6 @@ class App extends Component {
     const { crawlData, crawlActions } = this.props;
     return (
       <div className="main-app-container">
-        <div className="main-app-nav">NightCrawler</div>
         <Crawl crawlData={crawlData} actions={crawlActions} />
       </div>
     );
