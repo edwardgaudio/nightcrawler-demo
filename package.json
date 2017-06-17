@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "description": "an app to crawl the web at night",
   "scripts": {
+    "prestart": "echo prestart scripts here",
     "start": "NODE_ENV=development node server/app.js",
     "start-prod": "node server/app.js",
     "lint": "eslint src",
-    "test": "jest",
+    "test": "NODE_ENV=test jest",
     "watch": "webpack --progress --colors --watch",
     "build": "./node_modules/webpack/bin/webpack.js -p",
     "db-schema": "node init/db_schema.js",
@@ -33,6 +34,7 @@
     "extract-text-webpack-plugin": "^2.1.2",
     "jest": "^20.0.4",
     "node-sass": "^3.4.2",
+    "prettier": "^1.4.4",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^4.4.8",
@@ -43,6 +45,7 @@
     "redux-thunk": "^1.0.3",
     "sass-loader": "^3.2.3",
     "style-loader": "^0.13.2",
+    "supertest": "^3.0.0",
     "webpack": "^2.6.1"
   },
   "dependencies": {

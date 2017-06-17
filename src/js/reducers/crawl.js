@@ -3,7 +3,7 @@ import {
   LOADING_CRAWL,
   FAIL_CRAWL } from '../constants/ActionTypes';
 
-export default function forecast(state = { links: [] }, action) {
+export default function crawl(state = { links: [] }, action) {
   switch (action.type) {
     case LOADING_CRAWL:
       return state;

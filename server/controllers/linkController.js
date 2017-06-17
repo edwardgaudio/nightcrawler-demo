@@ -1,6 +1,6 @@
 /**
 *  @module linkController
-*  @desc link controller
+*  @desc link controller, not yet implimented
 **/
 
 const linkController = {

@@ -1,15 +1,14 @@
-/**
- * Just like our store, we configure a 'Root' component that is
- * required based on the env variable. This component is typically one
- * surrounded by a <Provider>.
- */
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import App from './App';
 
-let loadedModule = null;
-
-if (process.env.NODE_ENV === 'production') {
-  loadedModule = require('./Root.prod.js');
-} else {
-  loadedModule = require('./Root.dev.js');
-}
-
-export const Root = loadedModule;
+module.exports = class Root extends Component {
+  render() {
+    const { store } = this.props;//eslint-disable-line
+    return (
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+  }
+};

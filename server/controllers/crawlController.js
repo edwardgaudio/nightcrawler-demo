@@ -2,24 +2,27 @@
 *  @module crawlController
 *  @desc crawl controller
 **/
+const logger = require('../utils/logger');
 const scrapeService = require('../services/scrapeService');
+const htmlProcessorService = require('../services/htmlProcessorService');
+
 const DEFAULT_URL = 'https://news.ycombinator.com/';
 
 const crawlController = {
   /**
   * @method crawl
-  * @param source to crawl, or nothing, default to hacker news
-  * @return json, links:[ {link_text,href} ]
+  * @param source/url to crawl, or nothing, default to hacker news
+  * @return type:json { links:[ {link_text,href} ] }
   **/
-  crawl(req, res) {
-    console.log('hitting here');
-    // scrapeService.scrapeUrl(DEFAULT_URL);
-    return res.status(200).json({
-      links: [
-        'htttp://stuffff',
-        'htttp://stffff',
-      ],
-    });
+  async crawl(req, res) {
+    try {
+      const { body } = await scrapeService.scrapeUrl(DEFAULT_URL);
+      const links = htmlProcessorService.processHTMLBodyToLinks(body);
+      return res.status(200).json({ links });
+    } catch (err) {
+      logger.error('crawlController-crawl', err);
+      return res.status(500).send('crawl err');
+    }
   },
 };
 
