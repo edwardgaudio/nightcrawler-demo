@@ -1,0 +1,22 @@
+.links-block-container{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.link-block{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  height: 150px;
+  width: 150px;
+  padding:25px;
+  margin:10px;
+  background-color:$nc-blue;
+  transition: all 1.2s;
+  border-radius: 20px;
+  &:hover{
+    background-color: $nc-orange;
+    padding:35px 45px;
+  }
+}
