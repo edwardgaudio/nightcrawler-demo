@@ -11,12 +11,23 @@
   height: 150px;
   width: 150px;
   padding:25px;
-  margin:10px;
+  margin:.8rem;
   background-color:$nc-blue;
   transition: all 1.2s;
   border-radius: 20px;
   &:hover{
     background-color: $nc-orange;
     padding:35px 45px;
+  }
+}
+
+@include smaller-than-size($iphone6PlusPortrait){
+  .link-block {
+    height: 20vh;
+    width: 90vw;
+    margin: .35rem 0;
+    &:hover{
+      padding:25px;
+    }
   }
 }

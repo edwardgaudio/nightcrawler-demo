@@ -1,0 +1,19 @@
+
+//Media query mixins
+@mixin smaller-than-size($width) {
+  @media (max-width: $width) {
+    @content;
+  }
+}
+
+@mixin larger-than-size($width) {
+  @media (min-width: $width) {
+    @content;
+  }
+}
+
+@mixin size-between($min, $max) {
+  @media (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}

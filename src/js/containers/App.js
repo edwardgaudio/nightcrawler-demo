@@ -10,7 +10,7 @@ class App extends Component {
     const { crawlData, crawlActions } = this.props;
     return (
       <main>
-        <h1>NightCrawler</h1>
+        <h1>NightCrawler.  -(*\*)-</h1>
         <Crawl crawlData={crawlData} actions={crawlActions} />
       </main>
     );

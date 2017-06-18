@@ -13015,7 +13015,7 @@ var App = function (_Component) {
         _react2.default.createElement(
           'h1',
           null,
-          'NightCrawler'
+          'NightCrawler.  -(*\\*)-'
         ),
         _react2.default.createElement(_Crawl2.default, { crawlData: crawlData, actions: crawlActions })
       );
