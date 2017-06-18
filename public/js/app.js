@@ -7546,10 +7546,12 @@ function failedCrawl() {
   };
 }
 
-function fetchCrawl() {
+function fetchCrawl(url) {
   return function (dispatch) {
     dispatch(loadingCrawl());
-    return _axios2.default.get(CRAWL_URL).then(function (response) {
+    return _axios2.default.get(CRAWL_URL, {
+      params: { url: url }
+    }).then(function (response) {
       dispatch(updateCrawl(response.data.links));
     }).catch(function (err) {}); // eslint-disable-line
   };
@@ -12907,32 +12909,37 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// IMPORTANT, CONVERT THIS TO PROP Component
 var CrawlRow = function CrawlRow(_ref) {
-  var link = _ref.link;
+  var link = _ref.link,
+      fetchUrl = _ref.fetchUrl;
+
+  var _fetchUrl = function _fetchUrl() {
+    fetchUrl(link.href);
+  };
   return _react2.default.createElement(
     'div',
-    null,
-    link.link_text,
-    _react2.default.createElement('br', null),
+    { className: 'link-block' },
     _react2.default.createElement(
       'a',
       { target: '_blank', href: link.href },
-      link.href
+      link.link_text
     ),
-    _react2.default.createElement('br', null),
-    _react2.default.createElement('br', null)
+    _react2.default.createElement(
+      'div',
+      { className: 'fake-button', onClick: _fetchUrl },
+      'Crawl It!'
+    )
   );
 };
 
 var CrawlResults = function CrawlResults(_ref2) {
-  var links = _ref2.links;
+  var links = _ref2.links,
+      fetchUrl = _ref2.fetchUrl;
   return _react2.default.createElement(
     'div',
-    { className: 'crawl-results-container' },
-    _react2.default.createElement('br', null),
+    { className: 'links-block-container' },
     links.map(function (link, index) {
-      return _react2.default.createElement(CrawlRow, { key: index, link: link });
+      return _react2.default.createElement(CrawlRow, { key: index, link: link, fetchUrl: fetchUrl });
     })
   );
 };
@@ -13003,8 +13010,13 @@ var App = function (_Component) {
           crawlActions = _props.crawlActions;
 
       return _react2.default.createElement(
-        'div',
-        { className: 'main-app-container' },
+        'main',
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          'NightCrawler'
+        ),
         _react2.default.createElement(_Crawl2.default, { crawlData: crawlData, actions: crawlActions })
       );
     }
@@ -13053,19 +13065,13 @@ var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _redux = __webpack_require__(42);
-
 var _reactRedux = __webpack_require__(70);
 
 var _CrawlActions = __webpack_require__(128);
 
-var CrawlActions = _interopRequireWildcard(_CrawlActions);
-
 var _CrawlResults = __webpack_require__(247);
 
 var _CrawlResults2 = _interopRequireDefault(_CrawlResults);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13078,31 +13084,23 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var CrawlContainer = function (_Component) {
   _inherits(CrawlContainer, _Component);
 
-  function CrawlContainer(props, context) {
+  function CrawlContainer() {
     _classCallCheck(this, CrawlContainer);
 
-    var _this = _possibleConstructorReturn(this, (CrawlContainer.__proto__ || Object.getPrototypeOf(CrawlContainer)).call(this, props, context));
-
-    _this.handleFetch = function () {
-      _this.props.actions.fetchCrawl();
-    };
-    return _this;
+    return _possibleConstructorReturn(this, (CrawlContainer.__proto__ || Object.getPrototypeOf(CrawlContainer)).apply(this, arguments));
   }
 
   _createClass(CrawlContainer, [{
     key: 'render',
     value: function render() {
-      var links = this.props.links;
+      var _props = this.props,
+          links = _props.links,
+          fetchUrl = _props.fetchUrl;
 
       return _react2.default.createElement(
         'div',
-        { className: 'main-app-container' },
-        _react2.default.createElement(
-          'button',
-          { onClick: this.handleFetch },
-          'CRAWL - hackernews'
-        ),
-        _react2.default.createElement(_CrawlResults2.default, { links: links })
+        null,
+        _react2.default.createElement(_CrawlResults2.default, { links: links, fetchUrl: fetchUrl })
       );
     }
   }]);
@@ -13112,7 +13110,8 @@ var CrawlContainer = function (_Component) {
 
 CrawlContainer.propTypes = {
   links: _propTypes2.default.array.isRequired,
-  actions: _propTypes2.default.object.isRequired
+  actions: _propTypes2.default.object.isRequired,
+  fetchUrl: _propTypes2.default.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -13123,7 +13122,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: (0, _redux.bindActionCreators)(CrawlActions, dispatch)
+    fetchUrl: function fetchUrl(url) {
+      dispatch((0, _CrawlActions.fetchCrawl)(url));
+    }
   };
 }
 
@@ -13181,8 +13182,13 @@ exports.default = crawl;
 
 var _ActionTypes = __webpack_require__(129);
 
+var defaultState = {
+  links: [{ link_text: 'HackerNews', href: 'https://news.ycombinator.com/' }],
+  activeLink: null
+};
+
 function crawl() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { links: [], activeLink: null };
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
   var action = arguments[1];
 
   switch (action.type) {

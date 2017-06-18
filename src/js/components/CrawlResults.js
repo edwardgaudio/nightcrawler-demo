@@ -1,22 +1,22 @@
-// IMPORTANT, CONVERT THIS TO PROP Component
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CrawlRow = ({ link }) => (
-  <div>
-    {link.link_text}
-    <br />
-    <a target="_blank" href={link.href}>{link.href}</a>
-    <br />
-    <br />
-  </div>
-);
+const CrawlRow = ({ link, fetchUrl }) => {
+  const _fetchUrl = () => {
+    fetchUrl(link.href);
+  };
+  return (
+    <div className="link-block">
+      <a target="_blank" href={link.href}>{link.link_text}</a>
+      <div className="fake-button" onClick={_fetchUrl}>Crawl It!</div>
+    </div>
+  );
+};
 
-const CrawlResults = ({ links }) => (
-  <div className="crawl-results-container">
-    <br />
+const CrawlResults = ({ links, fetchUrl }) => (
+  <div className="links-block-container">
     {links.map((link, index) => (
-      <CrawlRow key={index} link={link} />
+      <CrawlRow key={index} link={link} fetchUrl={fetchUrl} />
     ))}
   </div>);
 

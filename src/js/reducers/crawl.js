@@ -3,7 +3,12 @@ import {
   LOADING_CRAWL,
   FAIL_CRAWL } from '../constants/ActionTypes';
 
-export default function crawl(state = { links: [], activeLink: null }, action) {
+const defaultState = {
+  links: [{ link_text: 'HackerNews', href: 'https://news.ycombinator.com/' }],
+  activeLink: null,
+};
+
+export default function crawl(state = defaultState, action) {
   switch (action.type) {
     case LOADING_CRAWL:
       return state;

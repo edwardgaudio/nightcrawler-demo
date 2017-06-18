@@ -9,9 +9,10 @@ class App extends Component {
   render() {
     const { crawlData, crawlActions } = this.props;
     return (
-      <div className="main-app-container">
+      <main>
+        <h1>NightCrawler</h1>
         <Crawl crawlData={crawlData} actions={crawlActions} />
-      </div>
+      </main>
     );
   }
 }

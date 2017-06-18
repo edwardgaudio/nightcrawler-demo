@@ -24,13 +24,15 @@ export function failedCrawl() {
   };
 }
 
-export function fetchCrawl() {
+export function fetchCrawl(url) {
   return dispatch => {
     dispatch(loadingCrawl());
-    return axios.get(CRAWL_URL)
-      .then(response => {
-        dispatch(updateCrawl(response.data.links));
-      })
-      .catch(err => {});// eslint-disable-line
+    return axios.get(CRAWL_URL, {
+      params: { url },
+    })
+    .then(response => {
+      dispatch(updateCrawl(response.data.links));
+    })
+    .catch(err => {});// eslint-disable-line
   };
 }

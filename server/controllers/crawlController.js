@@ -16,7 +16,7 @@ const crawlController = {
   **/
   async crawl(req, res) {
     try {
-      const { body } = await scrapeService.scrapeUrl(DEFAULT_URL);
+      const { body } = await scrapeService.scrapeUrl(req.query.url || DEFAULT_URL);
       const links = htmlProcessorService.processHTMLBodyToLinks(body);
       return res.status(200).json({ links });
     } catch (err) {
