@@ -1,6 +1,6 @@
 /**
 *  @module scrapeService
-*  @desc scrape services
+*  @desc scrape services, scraping various page types
 **/
 const rp = require('request-promise-native');
 const logger = require('../utils/logger');

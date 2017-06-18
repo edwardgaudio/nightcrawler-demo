@@ -7,7 +7,7 @@ const CrawlRow = ({ link, fetchUrl }) => {
   };
   return (
     <div className="link-block">
-      <a target="_blank" href={link.href}>{link.link_text}</a>
+      <a target="_blank" href={link.href}>{link.linkText}</a>
       <div className="fake-button" onClick={_fetchUrl}>Crawl It!</div>
     </div>
   );

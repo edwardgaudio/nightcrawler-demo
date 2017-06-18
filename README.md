@@ -1,24 +1,21 @@
 # Nightcrawler
 
 Crawling the web at night.
+Maintainer, Owner: Edward D. Gaudio - [edg.audio](http:edg.audio.com)
 
-Maintainer: Edward D. Gaudio - [edg.audio](http:edg.audio.com)
-
-*Some text here!!*
+*For demo and practice purposes only!*
 
 ***
 
 ### Overview
 
-### Features
-
-##### Basic:
+##### Basic Features:
   - React + Redux
   - Babel 6 w/ basic presets and transform
-  - Webpack w/ basic dev and prod configurations
+  - Webpack
   - Express development server
   - Sequelize - PostGres
-  - Eslint w/ basic configs
+  - Eslint w/ basic configs(AirBnb based)
   - Jest for Testing
   - Nunjucks Templates
   - Sass
@@ -54,7 +51,6 @@ PORT=your_port
 
 AirBnb style guide, 90% followed
 
-This project relies on `eslint-config-airbnb`.
 Learn more here: [AirBnb Style Guide](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb)
 
 ***

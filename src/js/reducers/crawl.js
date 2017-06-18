@@ -4,7 +4,7 @@ import {
   FAIL_CRAWL } from '../constants/ActionTypes';
 
 const defaultState = {
-  links: [{ link_text: 'HackerNews', href: 'https://news.ycombinator.com/' }],
+  links: [{ linkText: 'HackerNews', href: 'https://news.ycombinator.com/' }],
   activeLink: null,
 };
 

@@ -12,7 +12,7 @@ const crawlController = {
   /**
   * @method crawl
   * @param source/url to crawl, or nothing, default to hacker news
-  * @return type:json { links:[ {link_text,href} ] }
+  * @return type:json { links:[ {linkText,href} ] }
   **/
   async crawl(req, res) {
     try {

@@ -22,7 +22,7 @@ const htmlProcessorService = {
         }
 
         links.push({
-          link_text: linkText,
+          linkText,
           href,
         });
       });
