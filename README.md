@@ -1,4 +1,4 @@
-# Nightcrawler
+# Nightcrawler - Demo
 
 Crawling the web at night.
 Maintainer, Owner: Edward D. Gaudio - [edg.audio](http:edg.audio.com)
@@ -30,7 +30,8 @@ Maintainer, Owner: Edward D. Gaudio - [edg.audio](http:edg.audio.com)
 ### Usage
 
 ##### Getting Started:
-- Make a .env file with the following configurations
+- Make sure you have Postgres up and running
+- Make a .env file, top level, with the following configurations
 ```
 DB_HOST=your_localhost
 DB_USER=your_user
@@ -38,8 +39,11 @@ DB_PASS=your_pass
 DB_NAME=your_db_name
 PORT=your_port
 ```
-
-```
+- Run `npm run db-shema`
+- Run `npm run db-seed`
+- Build `npm run build`
+- Test if you feel so inclined `npm test`
+- Run the server `npm start`
 
 ***
 

@@ -5,6 +5,8 @@ const express = require('express');
 const expressNunjucks = require('express-nunjucks');
 const logger = require('./utils/logger');
 const path = require('path');
+const bodyParser = require('body-parser');
+
 const isDev = process.env.NODE_ENV === 'development';
 
 const app = express();
@@ -19,6 +21,10 @@ const njk = expressNunjucks(app, {// eslint-disable-line no-unused-vars
   noCache: isDev,
   globals: { appName: 'NightCrawler' },
 });
+
+// Parse body
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Routes
 app.use(require('./config/routes'));

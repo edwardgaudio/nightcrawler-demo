@@ -423,6 +423,11 @@ main {
     background-color: #ff6600;
     padding: 35px 45px; }
 
+.link-block-buttons {
+  display: flex; }
+  .link-block-buttons div {
+    margin-right: 5px; }
+
 @media (max-width: 414px) {
   .link-block {
     height: 20vh;

@@ -1,7 +1,7 @@
 import {
-  UPDATE_CRAWL,
-  LOADING_CRAWL,
-  FAIL_CRAWL } from '../constants/ActionTypes';
+  UPDATE_FETCH_URL,
+  LOADING_FETCH_URL,
+  FAIL_FETCH_URL } from '../constants/ActionTypes';
 
 const defaultState = {
   links: [{ linkText: 'HackerNews', href: 'https://news.ycombinator.com/' }],
@@ -10,15 +10,15 @@ const defaultState = {
 
 export default function crawl(state = defaultState, action) {
   switch (action.type) {
-    case LOADING_CRAWL:
+    case LOADING_FETCH_URL:
       return state;
-    case UPDATE_CRAWL:
+    case UPDATE_FETCH_URL:
       const activeLink = action.links[0] || null;
       return {
         links: action.links,
         activeLink,
       };
-    case FAIL_CRAWL:
+    case FAIL_FETCH_URL:
       return state;
     default:
       return state;
