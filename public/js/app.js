@@ -2905,15 +2905,30 @@ module.exports = g;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var FETCH_CRAWL = exports.FETCH_CRAWL = 'FETCH_CRAWL';
-var LOADING_CRAWL = exports.LOADING_CRAWL = 'LOADING_CRAWL';
-var UPDATE_CRAWL = exports.UPDATE_CRAWL = 'UPDATE_CRAWL';
-var FAIL_CRAWL = exports.FAIL_CRAWL = 'FAIL_CRAWL';
+var FETCH_URL = exports.FETCH_URL = 'FETCH_URL';
+var LOADING_FETCH_URL = exports.LOADING_FETCH_URL = 'LOADING_FETCH_URL';
+var UPDATE_FETCH_URL = exports.UPDATE_FETCH_URL = 'UPDATE_FETCH_URL';
+var FAIL_FETCH_URL = exports.FAIL_FETCH_URL = 'FAIL_FETCH_URL';
 
-var SAVE_LINK = exports.SAVE_LINK = 'SAVE_LINK';
-var LOADING_SAVE_LINK = exports.LOADING_SAVE_LINK = 'LOADING_SAVE_LINK';
-var UPDATE_SAVE_LINK = exports.UPDATE_SAVE_LINK = 'UPDATE_SAVE_LINK';
-var FAIL_SAVE_LINK = exports.FAIL_SAVE_LINK = 'FAIL_SAVE_LINK';
+var ADD_LINK = exports.ADD_LINK = 'ADD_LINK';
+var LOADING_ADD_LINK = exports.LOADING_ADD_LINK = 'LOADING_ADD_LINK';
+var UPDATE_ADD_LINK = exports.UPDATE_ADD_LINK = 'UPDATE_ADD_LINK';
+var FAIL_ADD_LINK = exports.FAIL_ADD_LINK = 'FAIL_ADD_LINK';
+
+var ADD_SOURCE = exports.ADD_SOURCE = 'ADD_SOURCE';
+var LOADING_ADD_SOURCE = exports.LOADING_ADD_SOURCE = 'LOADING_ADD_SOURCE';
+var UPDATE_ADD_SOURCE = exports.UPDATE_ADD_SOURCE = 'UPDATE_ADD_SOURCE';
+var FAIL_ADD_SOURCE = exports.FAIL_ADD_SOURCE = 'FAIL_ADD_SOURCE';
+
+var ADD_SENTIMENT = exports.ADD_SENTIMENT = 'ADD_SOURCE';
+var LOADING_ADD_SENTIMENT = exports.LOADING_ADD_SENTIMENT = 'LOADING_ADD_SENTIMENT';
+var UPDATE_ADD_SENTIMENT = exports.UPDATE_ADD_SENTIMENT = 'UPDATE_ADD_SENTIMENT';
+var FAIL_ADD_SENTIMENT = exports.FAIL_ADD_SENTIMENT = 'FAIL_ADD_SENTIMENT';
+
+var ADD_INTEREST = exports.ADD_INTEREST = 'ADD_INTEREST';
+var LOADING_ADD_INTEREST = exports.LOADING_ADD_INTEREST = 'LOADING_ADD_INTEREST';
+var UPDATE_ADD_INTEREST = exports.UPDATE_ADD_INTEREST = 'UPDATE_ADD_INTEREST';
+var FAIL_ADD_INTEREST = exports.FAIL_ADD_INTEREST = 'FAIL_ADD_INTEREST';
 
 /***/ }),
 /* 31 */,
@@ -7551,19 +7566,11 @@ var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _redux = __webpack_require__(28);
-
 var _reactRedux = __webpack_require__(42);
 
-var _crawlActions = __webpack_require__(602);
+var _LinkList = __webpack_require__(603);
 
-var crawlActions = _interopRequireWildcard(_crawlActions);
-
-var _Crawl = __webpack_require__(600);
-
-var _Crawl2 = _interopRequireDefault(_Crawl);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+var _LinkList2 = _interopRequireDefault(_LinkList);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7585,9 +7592,7 @@ var App = function (_Component) {
   _createClass(App, [{
     key: 'render',
     value: function render() {
-      var _props = this.props,
-          crawlData = _props.crawlData,
-          actions = _props.actions;
+      var linkData = this.props.linkData;
 
       return _react2.default.createElement(
         'main',
@@ -7597,7 +7602,7 @@ var App = function (_Component) {
           null,
           'NightCrawler.  -(*\\*)-'
         ),
-        _react2.default.createElement(_Crawl2.default, { crawlData: crawlData, actions: actions })
+        _react2.default.createElement(_LinkList2.default, { linkData: linkData })
       );
     }
   }]);
@@ -7606,23 +7611,16 @@ var App = function (_Component) {
 }(_react.Component);
 
 App.propTypes = {
-  crawlData: _propTypes2.default.object.isRequired,
-  actions: _propTypes2.default.object.isRequired
+  linkData: _propTypes2.default.object.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    crawlData: state.crawl
+    linkData: state.linkData
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: (0, _redux.bindActionCreators)(crawlActions, dispatch)
-  };
-}
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(App);
 
 /***/ }),
 /* 133 */,
@@ -7638,14 +7636,14 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(28);
 
-var _crawl = __webpack_require__(598);
+var _linkData = __webpack_require__(607);
 
-var _crawl2 = _interopRequireDefault(_crawl);
+var _linkData2 = _interopRequireDefault(_linkData);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
-  crawl: _crawl2.default
+  linkData: _linkData2.default
 });
 
 exports.default = rootReducer;
@@ -26647,7 +26645,17 @@ function symbolObservablePonyfill(root) {
 };
 
 /***/ }),
-/* 597 */
+/* 597 */,
+/* 598 */,
+/* 599 */,
+/* 600 */,
+/* 601 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 602 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26656,10 +26664,10 @@ function symbolObservablePonyfill(root) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateCrawl = updateCrawl;
-exports.loadingCrawl = loadingCrawl;
-exports.failedCrawl = failedCrawl;
-exports.fetchCrawl = fetchCrawl;
+exports.updateFetchUrl = updateFetchUrl;
+exports.loadingFetchUrl = loadingFetchUrl;
+exports.failedFetchUrl = failedFetchUrl;
+exports.fetchUrl = fetchUrl;
 
 var _axios = __webpack_require__(124);
 
@@ -26669,40 +26677,247 @@ var _ActionTypes = __webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var CRAWL_URL = '/crawl';
+var FETCH_URL_URL = '/crawl'; // Funny name
 
-function updateCrawl(links) {
+function updateFetchUrl(links) {
   return {
-    type: _ActionTypes.UPDATE_CRAWL,
+    type: _ActionTypes.UPDATE_FETCH_URL,
     links: links
   };
 }
 
-function loadingCrawl() {
+function loadingFetchUrl() {
   return {
-    type: _ActionTypes.LOADING_CRAWL
+    type: _ActionTypes.LOADING_FETCH_URL
   };
 }
 
-function failedCrawl() {
+function failedFetchUrl() {
   return {
-    type: _ActionTypes.FAIL_CRAWL
+    type: _ActionTypes.FAIL_FETCH_URL
   };
 }
 
-function fetchCrawl(url) {
+function fetchUrl(url) {
   return function (dispatch) {
-    dispatch(loadingCrawl());
-    return _axios2.default.get(CRAWL_URL, {
+    dispatch(loadingFetchUrl());
+    return _axios2.default.get(FETCH_URL_URL, {
       params: { url: url }
     }).then(function (response) {
-      dispatch(updateCrawl(response.data.links));
-    }).catch(function (err) {}); // eslint-disable-line
+      dispatch(updateFetchUrl(response.data.links));
+    }).catch(function (err) {
+      dispatch(failedFetchUrl(err));
+    });
   };
 }
 
 /***/ }),
-/* 598 */
+/* 603 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(8);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRedux = __webpack_require__(42);
+
+var _crawlActions = __webpack_require__(602);
+
+var _linkActions = __webpack_require__(608);
+
+var _LinkBlocks = __webpack_require__(604);
+
+var _LinkBlocks2 = _interopRequireDefault(_LinkBlocks);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LinkListContainer = function (_Component) {
+  _inherits(LinkListContainer, _Component);
+
+  function LinkListContainer() {
+    _classCallCheck(this, LinkListContainer);
+
+    return _possibleConstructorReturn(this, (LinkListContainer.__proto__ || Object.getPrototypeOf(LinkListContainer)).apply(this, arguments));
+  }
+
+  _createClass(LinkListContainer, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          links = _props.links,
+          _fetchUrl = _props._fetchUrl,
+          _addLink = _props._addLink;
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(_LinkBlocks2.default, { links: links, _fetchUrl: _fetchUrl, _addLink: _addLink })
+      );
+    }
+  }]);
+
+  return LinkListContainer;
+}(_react.Component);
+
+LinkListContainer.propTypes = {
+  links: _propTypes2.default.array.isRequired,
+  _fetchUrl: _propTypes2.default.func.isRequired,
+  _addLink: _propTypes2.default.func.isRequired
+};
+
+function mapStateToProps(state) {
+  return {
+    links: state.linkData.links
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    _fetchUrl: function _fetchUrl(url) {
+      dispatch((0, _crawlActions.fetchUrl)(url));
+    },
+    _addLink: function _addLink(link) {
+      dispatch((0, _linkActions.addLink)(link));
+    }
+  };
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LinkListContainer);
+
+/***/ }),
+/* 604 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(8);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _LinkBlock = __webpack_require__(605);
+
+var _LinkBlock2 = _interopRequireDefault(_LinkBlock);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var LinkBlocks = function LinkBlocks(_ref) {
+  var links = _ref.links,
+      _fetchUrl = _ref._fetchUrl,
+      _addLink = _ref._addLink;
+  return _react2.default.createElement(
+    'div',
+    { className: 'links-block-container' },
+    links.map(function (link, index) {
+      return _react2.default.createElement(_LinkBlock2.default, { key: index, link: link, fetchUrl: _fetchUrl, addLink: _addLink });
+    })
+  );
+};
+
+LinkBlocks.propTypes = {
+  links: _propTypes2.default.array.isRequired,
+  _fetchUrl: _propTypes2.default.func.isRequired,
+  _addLink: _propTypes2.default.func.isRequired
+};
+
+exports.default = LinkBlocks;
+
+/***/ }),
+/* 605 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(8);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var LinkBlock = function LinkBlock(_ref) {
+  var link = _ref.link,
+      fetchUrl = _ref.fetchUrl,
+      addLink = _ref.addLink;
+
+  var _fetchUrl = function _fetchUrl() {
+    fetchUrl(link.href);
+  };
+
+  var _addLink = function _addLink() {
+    addLink(link);
+  };
+  return _react2.default.createElement(
+    'div',
+    { className: 'link-block' },
+    _react2.default.createElement(
+      'a',
+      { target: '_blank', href: link.href },
+      link.linkText
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'link-block-buttons' },
+      _react2.default.createElement(
+        'div',
+        { className: 'fake-button', onClick: _fetchUrl },
+        'Crawl It!'
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'fake-button', onClick: _addLink },
+        'Save It!'
+      )
+    )
+  );
+};
+
+LinkBlock.propTypes = {
+  link: _propTypes2.default.object.isRequired,
+  fetchUrl: _propTypes2.default.func.isRequired,
+  addLink: _propTypes2.default.func.isRequired
+};
+
+exports.default = LinkBlock;
+
+/***/ }),
+/* 606 */,
+/* 607 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26725,15 +26940,15 @@ function crawl() {
   var action = arguments[1];
 
   switch (action.type) {
-    case _ActionTypes.LOADING_CRAWL:
+    case _ActionTypes.LOADING_FETCH_URL:
       return state;
-    case _ActionTypes.UPDATE_CRAWL:
+    case _ActionTypes.UPDATE_FETCH_URL:
       var activeLink = action.links[0] || null;
       return {
         links: action.links,
         activeLink: activeLink
       };
-    case _ActionTypes.FAIL_CRAWL:
+    case _ActionTypes.FAIL_FETCH_URL:
       return state;
     default:
       return state;
@@ -26741,7 +26956,7 @@ function crawl() {
 }
 
 /***/ }),
-/* 599 */
+/* 608 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26750,164 +26965,10 @@ function crawl() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(8);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var CrawlRow = function CrawlRow(_ref) {
-  var link = _ref.link,
-      fetchUrl = _ref.fetchUrl;
-
-  var _fetchUrl = function _fetchUrl() {
-    fetchUrl(link.href);
-  };
-  return _react2.default.createElement(
-    'div',
-    { className: 'link-block' },
-    _react2.default.createElement(
-      'a',
-      { target: '_blank', href: link.href },
-      link.linkText
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'fake-button', onClick: _fetchUrl },
-      'Crawl It!'
-    )
-  );
-};
-
-var CrawlResults = function CrawlResults(_ref2) {
-  var links = _ref2.links,
-      fetchUrl = _ref2.fetchUrl;
-  return _react2.default.createElement(
-    'div',
-    { className: 'links-block-container' },
-    links.map(function (link, index) {
-      return _react2.default.createElement(CrawlRow, { key: index, link: link, fetchUrl: fetchUrl });
-    })
-  );
-};
-
-CrawlResults.propTypes = {
-  links: _propTypes2.default.array.isRequired
-};
-
-exports.default = CrawlResults;
-
-/***/ }),
-/* 600 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(3);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(8);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactRedux = __webpack_require__(42);
-
-var _CrawlActions = __webpack_require__(597);
-
-var _CrawlResults = __webpack_require__(599);
-
-var _CrawlResults2 = _interopRequireDefault(_CrawlResults);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CrawlContainer = function (_Component) {
-  _inherits(CrawlContainer, _Component);
-
-  function CrawlContainer() {
-    _classCallCheck(this, CrawlContainer);
-
-    return _possibleConstructorReturn(this, (CrawlContainer.__proto__ || Object.getPrototypeOf(CrawlContainer)).apply(this, arguments));
-  }
-
-  _createClass(CrawlContainer, [{
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          links = _props.links,
-          fetchUrl = _props.fetchUrl;
-
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(_CrawlResults2.default, { links: links, fetchUrl: fetchUrl })
-      );
-    }
-  }]);
-
-  return CrawlContainer;
-}(_react.Component);
-
-CrawlContainer.propTypes = {
-  links: _propTypes2.default.array.isRequired,
-  actions: _propTypes2.default.object.isRequired,
-  fetchUrl: _propTypes2.default.func.isRequired
-};
-
-function mapStateToProps(state) {
-  return {
-    links: state.crawl.links
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchUrl: function fetchUrl(url) {
-      dispatch((0, _CrawlActions.fetchCrawl)(url));
-    }
-  };
-}
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CrawlContainer);
-
-/***/ }),
-/* 601 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 602 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.updateCrawl = updateCrawl;
-exports.loadingCrawl = loadingCrawl;
-exports.failedCrawl = failedCrawl;
-exports.fetchCrawl = fetchCrawl;
+exports.updateAddLink = updateAddLink;
+exports.loadingAddLink = loadingAddLink;
+exports.failedAddLink = failedAddLink;
+exports.addLink = addLink;
 
 var _axios = __webpack_require__(124);
 
@@ -26917,35 +26978,37 @@ var _ActionTypes = __webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var CRAWL_URL = '/crawl';
+var ADD_LINK_URL = '/links';
 
-function updateCrawl(links) {
+function updateAddLink(links) {
   return {
-    type: _ActionTypes.UPDATE_CRAWL,
+    type: _ActionTypes.UPDATE_ADD_LINK,
     links: links
   };
 }
 
-function loadingCrawl() {
+function loadingAddLink() {
   return {
-    type: _ActionTypes.LOADING_CRAWL
+    type: _ActionTypes.LOADING_ADD_LINK
   };
 }
 
-function failedCrawl() {
+function failedAddLink() {
   return {
-    type: _ActionTypes.FAIL_CRAWL
+    type: _ActionTypes.FAIL_ADD_LINK
   };
 }
-
-function fetchCrawl(url) {
+/**
+* @params: link:{link_text, href, source(optional)}
+**/
+function addLink(link) {
   return function (dispatch) {
-    dispatch(loadingCrawl());
-    return _axios2.default.get(CRAWL_URL, {
-      params: { url: url }
-    }).then(function (response) {
-      dispatch(updateCrawl(response.data.links));
-    }).catch(function (err) {}); // eslint-disable-line
+    dispatch(loadingAddLink());
+    return _axios2.default.post(ADD_LINK_URL, { link: link }).then(function (response) {
+      dispatch(updateAddLink(response.data.links));
+    }).catch(function (err) {
+      dispatch(failedAddLink(err));
+    });
   };
 }
 

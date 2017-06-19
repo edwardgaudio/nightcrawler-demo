@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import crawl from './crawl';
+import linkData from './linkData';
 
 const rootReducer = combineReducers({
-  crawl,
+  linkData,
 });
 
 export default rootReducer;

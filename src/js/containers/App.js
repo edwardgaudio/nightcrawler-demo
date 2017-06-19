@@ -1,40 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as crawlActions from '../actions/crawlActions';
-import Crawl from './Crawl';
+import LinkList from './LinkList';
 
 class App extends Component {
   render() {
-    const { crawlData, actions } = this.props;
+    const { linkData } = this.props;
     return (
       <main>
         <h1>NightCrawler.  -(*\*)-</h1>
-        <Crawl crawlData={crawlData} actions={actions} />
+        <LinkList linkData={linkData} />
       </main>
     );
   }
 }
 
 App.propTypes = {
-  crawlData: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired,
+  linkData: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    crawlData: state.crawl,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(crawlActions, dispatch),
+    linkData: state.linkData,
   };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null,
 )(App);

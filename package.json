@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "description": "an app to crawl the web at night",
   "scripts": {
-    "prestart": "echo prestart scripts here",
+    "prestart": "npm run build",
     "start": "NODE_ENV=development node server/app.js",
     "start-prod": "node server/app.js",
     "lint": "eslint src",
     "test": "NODE_ENV=test jest",
+    "test-watch": "jest --watch",
     "watch": "webpack --progress --colors --watch",
     "build": "./node_modules/webpack/bin/webpack.js -p",
     "db-schema": "node init/db_schema.js",
@@ -51,6 +52,7 @@
   },
   "dependencies": {
     "axios": "^0.15.2",
+    "body-parser": "^1.17.2",
     "cheerio": "^0.22.0",
     "classnames": "^2.2.5",
     "dotenv": "^4.0.0",
@@ -62,6 +64,7 @@
     "redux": "^3.6.0",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.4",
-    "sequelize": "^3.24.8"
+    "sequelize": "^3.24.8",
+    "valid-url": "^1.0.9"
   }
 }
