@@ -1,0 +1,14 @@
+//Nomralize
+@import 'base/normalize';
+
+// Common
+@import 'base/variables';
+@import 'base/mixins';
+@import 'base/typography';
+@import 'base/common';
+@import 'base/layout';
+@import 'base/animations';
+
+// Blocks
+@import 'blocks/hero';
+@import 'blocks/links-block';

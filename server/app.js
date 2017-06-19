@@ -1,30 +1,33 @@
-require('@risingstack/trace');
+// Get environment variable from .env file
+require('dotenv').config();
 
-const path = require('path');
 const express = require('express');
-const webpack = require('webpack');
-const config = require('../webpack.config.dev');
+const expressNunjucks = require('express-nunjucks');
+const logger = require('./utils/logger');
+const path = require('path');
+const isDev = process.env.NODE_ENV === 'development';
 
 const app = express();
-const compiler = webpack(config);
 
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath,
-}));
+// Serve static files
+app.use(express.static('public'));
 
-app.use(require('webpack-hot-middleware')(compiler));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../views/index.html'));
+// Set up nunjucks and the view directory, order matters here!
+app.set('views', path.join(__dirname, '/views'));
+const njk = expressNunjucks(app, {// eslint-disable-line no-unused-vars
+  watch: isDev,
+  noCache: isDev,
+  globals: { appName: 'NightCrawler' },
 });
 
-app.listen(3000, 'localhost', (err) => {
+// Routes
+app.use(require('./config/routes'));
+
+app.listen(process.env.PORT, 'localhost', (err) => {
   if (err) {
-    // TODO: ADD LOGGER
-    console.log(err);
+    logger.error(err);
     return;
   }
 
-  console.log('Listening at http://localhost:3000');
+  logger.info(`Listening at http://localhost:${process.env.PORT}`);
 });
