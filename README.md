@@ -1,4 +1,4 @@
-# Nightcrawler - Demo
+# Nightcrawler
 
 Crawling the web at night.
 Maintainer, Owner, PM: Edward D. Gaudio - [edg.audio](http:edg.audio.com)
