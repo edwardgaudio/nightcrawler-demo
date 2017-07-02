@@ -44,6 +44,7 @@ PORT=your_port
 - Build `npm run build`
 - Test if you feel so inclined `npm test`
 - Run the server `npm start`
+- Watch is not hooked up on npm start yet, probably should run ``
 
 ***
 
