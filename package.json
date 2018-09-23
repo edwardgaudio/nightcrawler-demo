@@ -59,12 +59,12 @@
     "express": "^4.16.3",
     "express-nunjucks": "^2.2.3",
     "nunjucks": "^3.0.1",
-    "pg": "^6.1.0",
+    "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
     "redux": "^3.6.0",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5",
-    "sequelize": "^3.24.8",
+    "sequelize": "^4.38.1",
     "valid-url": "^1.0.9"
   }
 }
